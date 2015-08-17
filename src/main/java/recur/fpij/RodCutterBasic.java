@@ -2,6 +2,7 @@ package recur.fpij;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
@@ -33,5 +34,15 @@ public class RodCutterBasic {
                     return profit;
                 };
         return callMemoized(compute, rodLength);
+    }
+
+    public int maxProfitMemo2(final int length, Map<Integer, Integer> memo) {
+
+        int profit = (length <= prices.size()) ? prices.get(length - 1) : 0;
+        for (int i = 1; i < length; i++) {
+            int priceWhenCut = memo.computeIfAbsent(i, j -> maxProfitMemo2(j, memo)) + memo.computeIfAbsent(length - i, j -> maxProfitMemo2(length - j, memo));
+            profit = Math.max(profit, priceWhenCut);
+        }
+        return profit;
     }
 }
