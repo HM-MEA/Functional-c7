@@ -14,4 +14,14 @@ public class ExampleCode {
             return func1(i - 1);
         }
     }
+
+    //末尾再帰でない例
+    public int func2(int i) {
+        //メソッドの戻り値を指定する部分で処理を行っている
+        if (i == 1) {
+            return i;
+        } else {
+            return i * func2(i - 1);
+        }
+    }
 }
